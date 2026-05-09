@@ -18,9 +18,12 @@ class DataManager:
         return Movie.query.filter_by(user_id=user_id).all()
 
 
-    def add_movie(self, title, user_id):
+    def add_movie(self, title, user_id, year=None):
         api_key = os.getenv("OMDB_API_KEY")
-        response = requests.get(f"https://www.omdbapi.com/?t={title}&apikey={api_key}")
+        url = f"https://www.omdbapi.com/?t={title}&apikey={api_key}"
+        if year:
+            url += f"&y={year}"
+        response = requests.get(url)
         data = response.json()
         if data.get("Response") == "False":
             return None
@@ -36,15 +39,24 @@ class DataManager:
         return movie
 
 
-    def update_movie(self, movie_id, new_title):
+    def update_movie(self, movie_id, name):
         movie = Movie.query.get(movie_id)
         if movie:
-            for key, value in new_title.items():
-                setattr(movie, key, value)
+            movie.name = name
+            db.session.commit()
+        return movie
 
 
     def delete_movie(self, movie_id):
         movie = Movie.query.get(movie_id)
         if movie:
             db.session.delete(movie)
+            db.session.commit()
+
+
+    def delete_user(self, user_id):
+        user = User.query.get(user_id)
+        if user:
+            Movie.query.filter_by(user_id=user_id).delete()
+            db.session.delete(user)
             db.session.commit()

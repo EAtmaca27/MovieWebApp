@@ -49,13 +49,46 @@ def user_movies(user_id):
 def add_movie(user_id):
     if request.method == "POST":
         title = request.form.get("title")
-        movie = data_manager.add_movie(title, user_id)
+        year = request.form.get("year") or None
+        movie = data_manager.add_movie(title, user_id, year)
         if movie is None:
             flash(f"Movie '{title}' not found. Check the title or your API key.", "error")
             return render_template("add_movie.html", user_id=user_id)
         flash(f"'{movie.name}' was added successfully!", "success")
         return redirect(url_for("user_movies", user_id=user_id))
     return render_template("add_movie.html", user_id=user_id)
+
+
+@app.route("/users/<int:user_id>/movies/<int:movie_id>/update", methods=["POST"])
+def update_movie(user_id, movie_id):
+    name = request.form.get("name").strip()
+    data_manager.update_movie(movie_id, name)
+    flash(f"Movie updated successfully!", "success")
+    return redirect(url_for("user_movies", user_id=user_id))
+
+
+@app.route("/users/<int:user_id>/movies/<int:movie_id>/delete", methods=["POST"])
+def delete_movie(user_id, movie_id):
+    data_manager.delete_movie(movie_id)
+    flash("Movie deleted.", "success")
+    return redirect(url_for("user_movies", user_id=user_id))
+
+
+@app.route("/users/<int:user_id>/delete", methods=["POST"])
+def delete_user(user_id):
+    data_manager.delete_user(user_id)
+    flash("User deleted.", "success")
+    return redirect(url_for("index"))
+
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("404.html"), 404
+
+
+@app.errorhandler(500)
+def server_error(e):
+    return render_template("500.html"), 500
 
 
 if __name__ == "__main__":
