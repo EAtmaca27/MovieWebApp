@@ -1,0 +1,197 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #141414;
+    color: #e5e5e5;
+    min-height: 100vh;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body > * {
+    width: 100%;
+    max-width: 960px;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    color: #fff;
+}
+
+a {
+    color: #e50914;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Hero header */
+.hero {
+    text-align: center;
+    padding: 48px 0 32px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #aaa;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+/* User list on home page */
+.user-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.user-list li a {
+    display: block;
+    background-color: #222;
+    padding: 28px 48px;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    color: #e5e5e5;
+    transition: background 0.2s;
+}
+
+.user-list li a:hover {
+    background-color: #e50914;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Movie grid */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.movie-card {
+    background-color: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.movie-card:hover {
+    transform: scale(1.04);
+}
+
+.movie-card img {
+    width: 100%;
+    display: block;
+    height: 240px;
+    object-fit: cover;
+}
+
+.movie-card .movie-info {
+    padding: 10px 12px;
+}
+
+.movie-card .movie-info strong {
+    display: block;
+    font-size: 0.95rem;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.movie-card .movie-info span {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    background-color: #e50914;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background-color: #b20710;
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Form */
+.form-container {
+    background-color: #222;
+    padding: 32px;
+    border-radius: 10px;
+    max-width: 420px;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    color: #aaa;
+}
+
+.form-container input[type="text"] {
+    width: 100%;
+    padding: 10px 14px;
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    outline: none;
+}
+
+.form-container input[type="text"]:focus {
+    border-color: #e50914;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.flash {
+    padding: 12px 18px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+}
+
+.flash.success {
+    background-color: #1a3a1a;
+    color: #4caf50;
+    border: 1px solid #4caf50;
+}
+
+.flash.error {
+    background-color: #3a1a1a;
+    color: #e50914;
+    border: 1px solid #e50914;
+}

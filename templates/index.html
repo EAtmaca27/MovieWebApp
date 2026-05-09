@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Movies</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="hero">
+        <h1>My Movies</h1>
+        <p class="subtitle">Pick a user to browse their movie collection</p>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <p class="flash {{ category }}">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <a href="{{ url_for('add_user') }}" class="btn" style="margin-bottom: 24px; display: inline-block;">+ Add User</a>
+    <ul class="user-list">
+        {% for user in users %}
+            <li><a href="{{ url_for('user_movies', user_id=user.id) }}">{{ user.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

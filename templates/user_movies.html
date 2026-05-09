@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ user.name }}'s Movies</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>{{ user.name }}'s Movies</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <p class="flash {{ category }}">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+    <a href="{{ url_for('add_movie', user_id=user.id) }}" class="btn">+ Add Movie</a>
+
+    <div class="movie-grid">
+        {% for movie in movies %}
+            <div class="movie-card">
+                <img src="{{ movie.url }}" alt="{{ movie.name }}">
+                <div class="movie-info">
+                    <strong>{{ movie.name }}</strong>
+                    <span>{{ movie.year }} · {{ movie.director }}</span>
+                </div>
+            </div>
+        {% else %}
+            <p>No movies yet.</p>
+        {% endfor %}
+    </div>
+
+    <a href="{{ url_for('index') }}" class="back-link">← Back to Users</a>
+</body>
+</html>
