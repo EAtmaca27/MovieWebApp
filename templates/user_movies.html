@@ -6,26 +6,46 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>{{ user.name }}'s Movies</h1>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% for category, message in messages %}
             <p class="flash {{ category }}">{{ message }}</p>
         {% endfor %}
     {% endwith %}
-    <a href="{{ url_for('add_movie', user_id=user.id) }}" class="btn">+ Add Movie</a>
 
-    <div class="movie-grid">
-        {% for movie in movies %}
-            <div class="movie-card">
-                <img src="{{ movie.url }}" alt="{{ movie.name }}">
-                <div class="movie-info">
-                    <strong>{{ movie.name }}</strong>
-                    <span>{{ movie.year }} · {{ movie.director }}</span>
+    <div class="section-card">
+        <div class="section-header">
+            <h1>{{ user.name }}'s Movies</h1>
+            <a href="{{ url_for('add_movie', user_id=user.id) }}" class="btn">+ Add Movie</a>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <div class="movie-grid">
+            {% for movie in movies %}
+                <div class="movie-card">
+                    <img src="{{ movie.url }}" alt="{{ movie.name }}">
+                    <div class="movie-info">
+                        <form id="update-{{ movie.id }}" method="POST"
+                              action="{{ url_for('update_movie', user_id=user.id, movie_id=movie.id) }}"></form>
+                        <form id="delete-{{ movie.id }}" method="POST"
+                              action="{{ url_for('delete_movie', user_id=user.id, movie_id=movie.id) }}"
+                              onsubmit="return confirm('Are you sure you want to delete \'{{ movie.name }}\'?')"></form>
+                        <div class="movie-top">
+                            <input type="text" name="name" value="{{ movie.name }}" class="title-input"
+                                   form="update-{{ movie.id }}">
+                            <span class="meta">Year: {{ movie.year }}</span>
+                            <span class="meta">Director/s: {{ movie.director }}</span>
+                        </div>
+                        <div class="card-actions">
+                            <button type="submit" form="update-{{ movie.id }}" class="btn btn-small">Save</button>
+                            <button type="submit" form="delete-{{ movie.id }}" class="btn btn-danger btn-small">Delete</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        {% else %}
-            <p>No movies yet.</p>
-        {% endfor %}
+            {% else %}
+                <p class="empty-msg">No movies yet. Add one above!</p>
+            {% endfor %}
+        </div>
     </div>
 
     <a href="{{ url_for('index') }}" class="back-link">← Back to Users</a>

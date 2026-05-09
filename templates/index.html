@@ -17,11 +17,27 @@
         {% endfor %}
     {% endwith %}
 
-    <a href="{{ url_for('add_user') }}" class="btn" style="margin-bottom: 24px; display: inline-block;">+ Add User</a>
-    <ul class="user-list">
-        {% for user in users %}
-            <li><a href="{{ url_for('user_movies', user_id=user.id) }}">{{ user.name }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="section-card">
+        <div class="section-header">
+            <h2>Users</h2>
+            <a href="{{ url_for('add_user') }}" class="btn">+ Add User</a>
+        </div>
+    </div>
+
+    <div class="section-card">
+        <ul class="user-list">
+            {% for user in users %}
+                <li class="user-item">
+                    <a href="{{ url_for('user_movies', user_id=user.id) }}" class="user-name">{{ user.name }}</a>
+                    <form method="POST" action="{{ url_for('delete_user', user_id=user.id) }}"
+                          onsubmit="return confirm('Delete {{ user.name }} and all their movies?')">
+                        <button type="submit" class="user-delete-btn" title="Delete user">×</button>
+                    </form>
+                </li>
+            {% else %}
+                <p class="empty-msg">No users yet. Add one above!</p>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

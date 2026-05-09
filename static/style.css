@@ -26,6 +26,12 @@ h1 {
     color: #fff;
 }
 
+h2 {
+    font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 0;
+}
+
 a {
     color: #e50914;
     text-decoration: none;
@@ -57,33 +63,76 @@ a:hover {
 /* User list on home page */
 .user-list {
     list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
 }
 
-.user-list li a {
-    display: block;
-    background-color: #222;
-    padding: 28px 48px;
+.user-item {
+    display: flex;
+    align-items: center;
+    background-color: #2a2a2a;
     border-radius: 8px;
-    font-size: 1.3rem;
+    overflow: hidden;
+}
+
+.user-name {
+    flex: 1;
+    padding: 16px 20px;
+    font-size: 1rem;
     color: #e5e5e5;
     transition: background 0.2s;
 }
 
-.user-list li a:hover {
+.user-name:hover {
     background-color: #e50914;
     color: #fff;
     text-decoration: none;
 }
 
+.user-delete-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1.3rem;
+    padding: 16px 14px;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.user-delete-btn:hover {
+    color: #e50914;
+}
+
+/* Section cards */
+.section-card {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.section-header h1 {
+    margin-bottom: 0;
+}
+
+.empty-msg {
+    color: #aaa;
+    font-size: 0.95rem;
+}
+
 /* Movie grid */
 .movie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 24px;
-    margin-top: 24px;
 }
 
 .movie-card {
@@ -91,6 +140,8 @@ a:hover {
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
 }
 
 .movie-card:hover {
@@ -100,24 +151,64 @@ a:hover {
 .movie-card img {
     width: 100%;
     display: block;
-    height: 240px;
-    object-fit: cover;
+    height: auto;
 }
 
 .movie-card .movie-info {
     padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
-.movie-card .movie-info strong {
-    display: block;
-    font-size: 0.95rem;
+.movie-top {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.card-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 12px;
+    padding-bottom: 4px;
+    padding-right: 8px;
+}
+
+.title-input {
+    width: 100%;
+    background: #333;
+    border: 1px solid #444;
+    border-radius: 4px;
     color: #fff;
-    margin-bottom: 4px;
+    font-size: 0.9rem;
+    padding: 5px 8px;
+    outline: none;
 }
 
-.movie-card .movie-info span {
-    font-size: 0.8rem;
+.title-input:focus {
+    border-color: #e50914;
+}
+
+.meta {
+    display: block;
+    font-size: 0.78rem;
     color: #aaa;
+}
+
+.btn-small {
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
+
+.btn-danger {
+    background-color: #555;
+}
+
+.btn-danger:hover {
+    background-color: #e50914;
 }
 
 /* Buttons */
@@ -175,6 +266,79 @@ a:hover {
     margin-top: 20px;
     color: #aaa;
     font-size: 0.9rem;
+}
+
+/* Add movie card */
+.add-movie-card {
+    background-color: #222;
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+}
+
+.add-movie-card h2 {
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 16px;
+}
+
+.add-movie-form {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.add-movie-form input[type="text"] {
+    flex: 2;
+    min-width: 160px;
+    padding: 10px 14px;
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+}
+
+.add-movie-form input[type="number"] {
+    flex: 1;
+    min-width: 100px;
+    max-width: 140px;
+    padding: 10px 14px;
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+}
+
+.add-movie-form input:focus {
+    border-color: #e50914;
+}
+
+/* Error pages */
+.error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+    gap: 16px;
+}
+
+.error-code {
+    font-size: 6rem;
+    color: #e50914;
+    margin-bottom: 0;
+}
+
+.error-message {
+    font-size: 1.2rem;
+    color: #aaa;
+    margin-bottom: 8px;
 }
 
 .flash {
